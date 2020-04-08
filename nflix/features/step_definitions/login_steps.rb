@@ -6,12 +6,14 @@ Quando("eu faço login com {string} e {string}") do |email, senha|
   sleep 3
 end
 
+# Validando chaves do Local Storage
 Então("devo ser autenticado") do
   js_script = 'return window.localStorage.getItem("default_auth_token");'
   token = page.execute_script(js_script)
   expect(token.length).to be 147
 end
 
-Então("devo ver {string} na área logada") do |email|
-  pending # Write code here that turns the phrase above into concrete actions
+Então("devo ver {string} na área logada") do |expect_name|
+  user = find(".sidebar-wrapper .user .info span")
+  expect(user.text).to eql expect_name
 end
