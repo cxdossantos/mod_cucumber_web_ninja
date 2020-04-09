@@ -9,6 +9,7 @@ class LoginPage
     find("#emailId").set email
     find("#passId").set pass
     click_button "Entrar"
+    sleep 1
   end
 
   def alert
