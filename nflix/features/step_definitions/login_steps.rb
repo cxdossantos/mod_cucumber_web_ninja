@@ -1,8 +1,6 @@
 Quando("eu faço login com {string} e {string}") do |email, senha|
-  visit "/"
-  find("#emailId").set email
-  find("#passId").set senha
-  click_button "Entrar"
+  @login.go
+  @login.with(email, senha)
   sleep 1
 end
 
@@ -14,8 +12,7 @@ Então("devo ser autenticado") do
 end
 
 Então("devo ver {string} na área logada") do |expect_name|
-  user = find(".sidebar-wrapper .user .info span")
-  expect(user.text).to eql expect_name
+  expect(@sidebar.logged_user).to eql expect_name
 end
 
 Então("não devo ser autenticado") do
@@ -25,6 +22,5 @@ Então("não devo ser autenticado") do
 end
 
 Então("devo ver a mensagem de alerta {string}") do |expect_message|
-  alert = find(".alert")
-  expect(alert.text).to eql expect_message
+  expect(@login.alert).to eql expect_message
 end
